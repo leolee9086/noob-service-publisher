@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script>
+        if (window.parent !== window) {
+            let error = console.error
+            console.error = {}
+            console.error = (...args) => error(["发布文档脚本错误:"].concat(...args))
+        }
+    </script>
+    <script id="client" src="/client/index.js"></script>
+    <style id="editorFontSize">
+        .b3-typography,
+        .protyle-wysiwyg,
+        .protyle-title {
+            font-size: 16px !important
+        }
+
+        .b3-typography code:not(.hljs),
+        .protyle-wysiwyg code:not(.hljs) {
+            font-variant-ligatures: normal
+        }
+
+        .li>.protyle-action {
+            height: 42px;
+            line-height: 42px
+        }
+
+        .protyle-wysiwyg [data-node-id].li>.protyle-action~.h1,
+        .protyle-wysiwyg [data-node-id].li>.protyle-action~.h2,
+        .protyle-wysiwyg [data-node-id].li>.protyle-action~.h3,
+        .protyle-wysiwyg [data-node-id].li>.protyle-action~.h4,
+        .protyle-wysiwyg [data-node-id].li>.protyle-action~.h5,
+        .protyle-wysiwyg [data-node-id].li>.protyle-action~.h6 {
+            line-height: 42px;
+        }
+
+        .protyle-wysiwyg [data-node-id].li>.protyle-action:after {
+            height: 21px;
+            width: 21px;
+            margin: -10.5px 0 0 -10.5px
+        }
+
+        .protyle-wysiwyg [data-node-id].li>.protyle-action svg {
+            height: 14px
+        }
+
+        .protyle-wysiwyg [data-node-id] [spellcheck="false"] {
+            min-height: 34px
+        }
+
+        .protyle-wysiwyg .li {
+            min-height: 42px
+        }
+
+        .protyle-gutters button svg {
+            height: 34px
+        }
+
+        .protyle-wysiwyg img.emoji,
+        .b3-typography img.emoji {
+            width: 26px
+        }
+
+        .protyle-wysiwyg .h1 img.emoji,
+        .b3-typography h1 img.emoji {
+            width: 45px
+        }
+
+        .protyle-wysiwyg .h2 img.emoji,
+        .b3-typography h2 img.emoji {
+            width: 40px
+        }
+
+        .protyle-wysiwyg .h3 img.emoji,
+        .b3-typography h3 img.emoji {
+            width: 36px
+        }
+
+        .protyle-wysiwyg .h4 img.emoji,
+        .b3-typography h4 img.emoji {
+            width: 32px
+        }
+
+        .protyle-wysiwyg .h5 img.emoji,
+        .b3-typography h5 img.emoji {
+            width: 29px
+        }
+
+        .protyle-wysiwyg .h6 img.emoji,
+        .b3-typography h6 img.emoji {
+            width: 26px
+        }
+
+        .b3-typography,
+        .protyle-wysiwyg,
+        .protyle-title,
+        .protyle-title__input {
+            font-family: "文泉驿等宽正黑", "quote", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols" !important;
+        }
+    </style>
+    <style id="editorAttr">
+        .protyle-wysiwyg--attr .b3-tooltips:after {
+            max-width: 624px;
+        }
+
+        .toolbar.publishNavi {
+            height: auto !important;
+            font-size: 1.3rem;
+            border: 1px solid var(--b3-border-color)
+        }
+
+        .toolbarLeft,
+        .toolbarRight {
+            min-width: 20vw;
+        }
+
+        .toolbarCenter li {
+            padding: 10px !important;
+            background-color: var(--b3-themes-background) !important;
+        }
+
+        .favicon {
+            width: 30px !important;
+            height: 30px !important;
+        }
+
+        .favicon img {
+            width: 100% !important;
+            height: 100% !important;
+
+        }
+    </style>
+ 
+    <link href="/stage/build/app/base.5b8bdfa5237442918ba9.css	" rel="stylesheet">
+
+    <style id="naive-fix">
+        .toolbar.publishNavi li.item {
+            max-width: 100%;
+            flex-shrink: 1;
+            flex: 1;
+            margin-top: 0%;
+            margin-bottom: 0%;
+            background-color: transparent !important;
+        }
+        .toolbar.publishNavi .layout-tab-bar{
+            background-color: transparent !important;
+            border-bottom: 0ch;
+        }
+        .toolbar.publishNavi li.item span{
+            background-color: transparent !important;
+
+        }
+        .protyle-background__img{
+            position: relative;
+            border: 0ch;
+        }
+    </style>
+    <link id="themeDefaultStyle" rel="stylesheet" type="text/css" href="/appearance/themes/daylight/theme.css">
+    <link id="themeStyle" rel="stylesheet" type="text/css" href="/appearance/themes/daylight/theme.css">
+    <link id="publishFixStyle" rel="stylesheet" type="text/css" href="/appearance/themes/daylight/theme.css">
+    <link id="protyleHljsStyle" rel="stylesheet" type="text/css"
+        href="/stage/protyle/js/highlight.js/styles/github.min.css?">
+    <script src="/stage/protyle/js/highlight.js/highlight.min.js?" async="" id="protyleHljsScript"></script>
+    <link id="protyleKatexStyle" rel="stylesheet" type="text/css" href="/stage/protyle/js/katex/katex.min.css?v=0.16.0">
+    <script src="/stage/protyle/js/katex/katex.min.js?" async="" id="protyleKatexScript"></script>
+    <script src="/stage/protyle/js/mermaid/mermaid.min.js?" async="" id="protyleMermaidScript"></script>
+    <script src="/stage/protyle/js/flowchart.js/flowchart.min.js?" async="" id="protyleFlowchartScript"></script>
+    <script src="/stage/protyle/js/graphviz/viz.js?" async="" id="protyleGraphVizScript"></script>
+    <script src="/stage/protyle/js/echarts/echarts.min.js?" async="" id="protyleEchartsScript"></script>
+    <script src="/stage/protyle/js/abcjs/abcjs-basic-min.js?" async="" id="protyleAbcjsScript"></script>
+    <script src="/stage/protyle/js/plantuml/plantuml-encoder.min.js?" async="" id="protylePlantumlScript"></script>
+    <script src="/stage/protyle/js/katex/mhchem.min.js?" async="" id="protyleKatexMhchemScript"></script>
+    <script src="/stage/protyle/js/echarts/echarts-gl.min.js?" async="" id="protyleEchartsGLScript"></script>
+    <script src="/stage/protyle/js/highlight.js/third-languages.js?" async="" id="protyleHljsThirdScript"></script>
+    <script src="/appearance/icons/material/icon.js" async="" id="iconScript"></script>
+    <script src="/appearance/emojis/twitter-emoji.js" async="" id="emojiScript"></script>
+</head>
+
+<body class="fn__flex-column body--win32">
+    <div id='toolbar' class="toolbar publishNavi fn__flex">
+        <div class="fn__flex  toolbarLeft">
+        </div>
+        <div class="fn__flex-1 toolbarCenter">
+            <ul class="fn__flex layout-tab-bar">
+                <li data-type="tab-header" data-position="center" class="item" data-type="文章">
+                    <span class="item__icon favicon" style="width: 30px;height: 30px;">
+                        <img src="/stage/logo.png"></img>
+                    </span>
+                    <a href="/block/20200812220555-lj3enxa">
+                        CCDS
+                    </a>
+                </li>
+                <li data-type="tab-header" data-position="center" class="item" data-type="搜索">
+                    <span class="item__icon">
+                        <input />
+                    </span>
+                    <span class="item__icon">
+                        <svg>
+                            <use xlink:href="#iconSearch"></use>
+                        </svg>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="fn__flex  toolbarRight">
+        </div>
+    </div>
+    <div class="fn__flex-1 fn__flex">
+        <div id="dockLeft" class="dock dock--vertical fn__none">
+            <div>
+                <span data-height="null" data-width="null" data-type="file" data-index="0" data-hotkeylangid="fileTree"
+                    class="dock__item b3-tooltips b3-tooltips__e dock__item--active" aria-label="文档树 Alt+1
+                单击 展开/最小化
+                ">
+                    <svg>
+                        <use xlink:href="#iconFiles"></use>
+                    </svg>
+                </span>
+                <span data-height="null" data-width="null" data-type="file" data-index="0" data-hotkeylangid="fileTree"
+                    class="dock__item b3-tooltips b3-tooltips__e " aria-label="当前文档大纲 Alt+1
+            单击 展开/最小化
+            ">
+                    <svg>
+                        <use xlink:href="#iconAlignCenter"></use>
+                    </svg>
+                </span>
+            </div>
+            <div class="fn__flex-1">
+
+            </div>
+            <div>
+            </div>
+        </div>
+        <div id="layouts" class='layout fn__flex-1 fn__flex-column' style="transition: var(--b3-width-transition);">
+
+            <div class="fn__flex fn__flex-1" style="transition: var(--b3-width-transition);">
+
+                <div class="fn__flex-column fn__flex-shrink" id="panelLeft"
+                    style="width: 300px; transition: var(--b3-width-transition);">
+                    <div class="fn__flex fn__flex-1">
+                        <div data-type="wnd" data-id="" class="fn__flex-column fn__flex fn__flex-1">
+                            <ul class="fn__flex layout-tab-bar"></ul>
+                            <div class="layout-tab-container fn__flex-1">
+                                <div class="fn__flex-1 fn__flex-column file-tree sy__outline"
+                                    data-id="b67fb5a2-6b75-45b9-a56a-638f0d7e9a08">
+                                    <div class="block__icons block__icons--active">
+                                        <div class="block__logo">
+                                            <svg>
+                                                <use xlink:href="#iconAlignCenter"></use>
+                                            </svg>
+                                            大纲
+                                        </div>
+                                    </div>
+                                    <div class="fn__flex-1" data-type="outline">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fn__flex fn__flex-1">
+                        <div data-type="wnd" data-id="" class="fn__flex-column fn__flex fn__flex-1">
+                            <ul class="fn__flex layout-tab-bar"></ul>
+                            <div class="layout-tab-container fn__flex-1">
+                                <div class="fn__flex-1 fn__flex-column file-tree sy__file"
+                                    data-id="b67fb5a2-6b75-45b9-a56a-638f0d7e9a08">
+                                    <div class="block__icons block__icons--active">
+                                        <div class="block__logo">
+                                            <svg>
+                                                <use xlink:href="#iconFiles"></use>
+                                            </svg>
+                                            文档树
+                                        </div>
+                                    </div>
+                                    <div class="fn__flex-1" data-type="navigation">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layout__resize--lr layout__resize" id="resizeLeft"></div>
+
+                <div class="layout__center fn__flex fn__flex-1" style="transition: var(--b3-width-transition);">
+                    <div class="fn__flex fn__flex-1">
+                        <div data-type="wnd" data-id="" class="fn__flex-column fn__flex fn__flex-1">
+                            <ul class="fn__flex layout-tab-bar">
+                            </ul>
+                            <div class="layout-tab-container fn__flex-1">
+                                <div class="layout-tab-container__drag fn__none"></div>
+                                <div class="fn__flex-1 fn__none searchContainer"></div>
+
+                                <div class="fn__flex-1 protyle" data-id="cdf2875f-40f2-45aa-8d8b-f92c23284907">
+                                    <div class="protyle-breadcrumb">
+                                        <div class="protyle-breadcrumb__bar protyle-breadcrumb__bar--nowrap"><span
+                                                class="protyle-breadcrumb__item protyle-breadcrumb__item--active"
+                                                data-node-id="20200813093015-u6bopdt">
+                                                <svg class="popover__block" data-id="20200813093015-u6bopdt">
+                                                    <use xlink:href="#iconFile"></use>
+                                                </svg>
+                                            </span><svg class="protyle-breadcrumb__arrow">
+                                                <use xlink:href="#iconRight"></use>
+                                            </svg><span class="protyle-breadcrumb__item"
+                                                data-node-id="20220617160928-fw4ixa3">
+                                                <svg class="popover__block" data-id="20220617160928-fw4ixa3">
+                                                    <use xlink:href="#iconH2"></use>
+                                                </svg>
+                                                <span class="protyle-breadcrumb__text"
+                                                    title="思源适合我吗？或者说我应该如何选择笔记软件？">思源适合我吗？或者说我应该如何选择笔记软件？</span>
+                                            </span></div>
+                                        <span class="fn__flex-1 fn__flex-shrink"></span>
+                                        <button class="b3-tooltips b3-tooltips__w block__icon fn__flex-center"
+                                            style="opacity: 1;" data-menu="true" aria-label="更多"><svg>
+                                                <use xlink:href="#iconMore"></use>
+                                            </svg></button>
+                                    </div>
+                                    <div class="protyle-content" style="overflow-x:scroll">
+                                        <div class="protyle-background" data-node-id="20200813093015-u6bopdt"
+                                            style="min-height: 64px;">
+                                            <div class="protyle-background__img">
+                                                <img class="fn__none">
+                                                <div class="protyle-icons">
+                                                    <span
+                                                        class="protyle-icon protyle-icon--first b3-tooltips b3-tooltips__sw"
+                                                        style="position: relative" aria-label="上传"><input type="file"
+                                                            style="position: absolute;width: 22px;height: 100%;top: 0;left: 0;opacity: .001;overflow: hidden;cursor: pointer;"><svg>
+                                                            <use xlink:href="#iconUpload"></use>
+                                                        </svg></span>
+                                                    <span class="protyle-icon b3-tooltips b3-tooltips__sw"
+                                                        data-type="link" aria-label="链接"><svg>
+                                                            <use xlink:href="#iconLink"></use>
+                                                        </svg></span>
+                                                    <span class="protyle-icon b3-tooltips b3-tooltips__sw"
+                                                        data-type="random" aria-label="随机"><svg>
+                                                            <use xlink:href="#iconRefresh"></use>
+                                                        </svg></span>
+                                                    <span class="protyle-icon b3-tooltips b3-tooltips__sw fn__none"
+                                                        data-type="position" aria-label="上下拖动图片以调整位置"><svg>
+                                                            <use xlink:href="#iconMove"></use>
+                                                        </svg></span>
+                                                    <span
+                                                        class="protyle-icon protyle-icon--last b3-tooltips b3-tooltips__sw"
+                                                        data-type="remove" aria-label="删除"><svg>
+                                                            <use xlink:href="#iconTrashcan"></use>
+                                                        </svg></span>
+                                                </div>
+                                                <div class="protyle-icons fn__none"><span
+                                                        class="protyle-icon protyle-icon--text">上下拖动图片以调整位置</span></div>
+                                                <div class="protyle-icons fn__none" style="opacity: .86;">
+                                                    <span class="protyle-icon protyle-icon--first"
+                                                        data-type="cancel">取消</span>
+                                                    <span class="protyle-icon protyle-icon--last"
+                                                        data-type="confirm">确定</span>
+                                                </div>
+                                            </div>
+                                            <div class="protyle-background__tags"></div>
+                                            <div class="protyle-background__iconw " style="left:16px">
+                                                <div class="protyle-background__icon" data-menu="true"
+                                                    data-type="open-emoji">
+                                                    <svg class="custom-icon">
+                                                        <use xlink:href="#icon-2753"></use>
+                                                    </svg>
+                                                </div>
+                                                <div class="protyle-icons fn__flex-center fn__none">
+                                                    <span
+                                                        class="protyle-icon protyle-icon--first b3-tooltips b3-tooltips__s"
+                                                        data-menu="true" data-type="tag" aria-label="添加标签"><svg>
+                                                            <use xlink:href="#iconTags"></use>
+                                                        </svg></span>
+                                                    <span class="protyle-icon b3-tooltips b3-tooltips__s"
+                                                        data-type="icon" aria-label="修改图标"><svg>
+                                                            <use xlink:href="#iconEmoji"></use>
+                                                        </svg></span>
+                                                    <span
+                                                        class="protyle-icon protyle-icon--last b3-tooltips b3-tooltips__s"
+                                                        data-type="random" aria-label="题头图"><svg>
+                                                            <use xlink:href="#iconImage"></use>
+                                                        </svg></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="protyle-title protyle-wysiwyg--attr"
+                                            style="margin: 16px 16px 0px 24px;">
+                                            <span aria-label="点击 打开菜单<br>⇧Click 修改属性" class="protyle-title__icon"
+                                                data-type="a" data-position="right"><svg>
+                                                    <use xlink:href="#iconFile"></use>
+                                                </svg></span>
+                                            <div contenteditable="true" spellcheck="false" class="protyle-title__input"
+                                                data-tip="请输入文档名" data-render="true">常见问题</div>
+                                            <div class="protyle-attr">
+                                                <div class="protyle-attr--refcount popover__block"
+                                                    data-defids="[&quot;20200813093015-u6bopdt&quot;]"
+                                                    data-id="[&quot;20210131155408-4u2rjpf&quot;]">1</div>
+                                            </div>
+                                        </div>
+                                        <div class="protyle-wysiwyg protyle-wysiwyg--attr" spellcheck="false"
+                                            contenteditable="true" style="padding: 16px 16px 212.5px 24px;" id="preview"
+                                            data-doc-type="NodeDocument">
+                                        </div>
+                                    </div>
+
+                                    <div class="fn__none protyle-scroll b3-tooltips b3-tooltips__s"
+                                        aria-label="Blocks 1/35">
+                                        <input class="b3-slider" type="range" max="35" min="1" step="1" value="1">
+                                    </div>
+                                    <div class="protyle-gutters fn__none"
+                                        aria-label="拖拽 移动位置<br>点击 打开菜单<br>Ctrl+Click 进入<br>Alt+Click 折叠/展开<br>Shift+Click 修改属性"
+                                        data-type="a" data-position="right"></div>
+                                    <div data-close="false"
+                                        style="z-index: 201;overflow:auto;max-height:402px;width:334.5px;box-sizing: border-box;"
+                                        class="b3-menu b3-list b3-list--background fn__none"></div>
+                                    <div class="protyle-toolbar fn__none">
+                                        <button class="protyle-toolbar__item b3-tooltips b3-tooltips__ne"
+                                            data-type="blockRef" aria-label="引用块 Alt+[">
+                                            <svg>
+                                                <use xlink:href="#iconGraph"></use>
+                                            </svg>
+                                        </button>
+                                        <button class="protyle-toolbar__item b3-tooltips b3-tooltips__n"
+                                            data-type="link" aria-label="链接 Ctrl+K">
+                                            <svg>
+                                                <use xlink:href="#iconLink"></use>
+                                            </svg>
+                                        </button>
+                                        <div class="protyle-toolbar__divider"></div><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n" data-type="bold"
+                                            aria-label="粗体 Ctrl+B"><svg>
+                                                <use xlink:href="#iconBold"></use>
+                                            </svg></button><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n" data-type="italic"
+                                            aria-label="斜体 Ctrl+I"><svg>
+                                                <use xlink:href="#iconItalic"></use>
+                                            </svg></button><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n"
+                                            data-type="underline" aria-label="下划线 Ctrl+U"><svg>
+                                                <use xlink:href="#iconUnderline"></use>
+                                            </svg></button><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n" data-type="strike"
+                                            aria-label="删除线 Ctrl+D"><svg>
+                                                <use xlink:href="#iconStrike"></use>
+                                            </svg></button><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n" data-type="mark"
+                                            aria-label="标记 Ctrl+E"><svg>
+                                                <use xlink:href="#iconMark"></use>
+                                            </svg></button>
+                                        <div class="protyle-toolbar__divider"></div><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n" data-type="sup"
+                                            aria-label="上标 Ctrl+H"><svg>
+                                                <use xlink:href="#iconSup"></use>
+                                            </svg></button><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n" data-type="sub"
+                                            aria-label="下标 Ctrl+J"><svg>
+                                                <use xlink:href="#iconSub"></use>
+                                            </svg></button><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n" data-type="kbd"
+                                            aria-label="键盘 Ctrl+'">
+                                            <svg>
+                                                <use xlink:href="#iconKeymap"></use>
+                                            </svg></button>
+                                        <div class="protyle-toolbar__divider"></div><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n" data-type="tag"
+                                            aria-label="标签 Ctrl+T"><svg>
+                                                <use xlink:href="#iconTags"></use>
+                                            </svg></button><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n"
+                                            data-type="inline-code" aria-label="行内代码 Ctrl+G"><svg>
+                                                <use xlink:href="#iconInlineCode"></use>
+                                            </svg></button><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n"
+                                            data-type="inline-math" aria-label="行内数学公式 Ctrl+M"><svg>
+                                                <use xlink:href="#iconMath"></use>
+                                            </svg></button>
+                                        <div class="protyle-toolbar__divider"></div><button
+                                            class="protyle-toolbar__item b3-tooltips b3-tooltips__n" data-type="font"
+                                            aria-label="字体 Ctrl+Alt+X"><svg>
+                                                <use xlink:href="#iconFont"></use>
+                                            </svg></button>
+                                    </div>
+                                    <div class="protyle-util fn__none"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layout__resize--lr layout__resize" id="resizeRight"></div>
+                <div class="fn__flex-column" id="panelRight"
+                    style="width: 300px; transition: var(--b3-width-transition);">
+                    <div class="fn__flex-1 fn__flex" style="transition: var(--b3-width-transition);">
+                        <div data-type="wnd" data-id="eff90d14-fe9d-4dd6-9076-c7770a33316b"
+                            class="fn__flex-column fn__flex fn__flex-1">
+                            <ul class="fn__flex layout-tab-bar"></ul>
+                            <div class="layout-tab-container fn__flex-1">
+                                <div class="fn__flex-1 graph file-tree sy__graph"
+                                    data-id="ff2c17f6-4bb1-4b66-a982-c0b5aca8c9ed">
+                                    <div class="block__icons block__icons--active">
+                                        <div class="block__logo">
+                                            <svg>
+                                                <use xlink:href="#iconGraph"></use>
+                                            </svg>
+                                            关系图
+                                        </div>
+
+                                        <div data-type="menu" class="b3-tooltips b3-tooltips__sw block__icon"
+                                            aria-label="更多">
+                                            <svg>
+                                                <use xlink:href="#iconMore"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="graph__panel">
+                                        <label>
+                                            <span>标题</span>
+                                            <input data-type="heading" type="checkbox" class="b3-switch" checked="">
+                                        </label>
+                                        <label>
+                                            <span>列表</span>
+                                            <input data-type="list" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>列表项</span>
+                                            <input data-type="listItem" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>引述</span>
+                                            <input data-type="blockquote" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>超级块</span>
+                                            <input data-type="super" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>表格</span>
+                                            <input data-type="table" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>数学公式块</span>
+                                            <input data-type="math" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>代码块</span>
+                                            <input data-type="code" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>段落</span>
+                                            <input data-type="paragraph" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>日记</span>
+                                            <input data-type="dailyNote" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>标签</span>
+                                            <input data-type="tag" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>箭头</span>
+                                            <input data-type="arrow" type="checkbox" class="b3-switch">
+                                        </label>
+                                        <label>
+                                            <span>节点大小</span>
+                                            <input data-type="nodeSize" class="b3-slider b3-tooltips__n b3-tooltips"
+                                                aria-label="16" max="32" min="4" step="2" type="range" value="16">
+                                        </label>
+                                        <label>
+                                            <span>连线粗细</span>
+                                            <input data-type="linkWidth" class="b3-tooltips b3-tooltips__n b3-slider"
+                                                max="32" min="4" step="2" type="range" value="8" aria-label="8">
+                                        </label>
+                                        <label>
+                                            <span>连线透明度</span>
+                                            <input data-type="lineOpacity" class="b3-tooltips b3-tooltips__n b3-slider"
+                                                max="1" min="0.1" step="0.01" type="range" value="0.98"
+                                                aria-label="0.98">
+                                        </label>
+                                        <label>
+                                            <span>中心引力强度</span>
+                                            <input data-type="centerStrength"
+                                                class="b3-tooltips b3-tooltips__n b3-slider" max="0.1" min="0.005"
+                                                step="0.01" type="range" value="0.015" aria-label="0.015">
+                                        </label>
+                                        <label>
+                                            <span>斥力半径</span>
+                                            <input data-type="collideRadius"
+                                                class="b3-tooltips b3-tooltips__n b3-slider" max="5000" min="400"
+                                                step="200" type="range" value="5000" aria-label="5000">
+                                        </label>
+                                        <label>
+                                            <span>斥力强度</span>
+                                            <input data-type="collideStrength"
+                                                class="b3-tooltips b3-tooltips__n b3-slider" max="1" min="0.01"
+                                                step="0.01" type="range" value="1" aria-label="1">
+                                        </label>
+                                        <label>
+                                            <span>链接距离</span>
+                                            <input data-type="linkDistance" class="b3-tooltips b3-tooltips__n b3-slider"
+                                                max="2000" min="100" step="100" type="range" value="400"
+                                                aria-label="400">
+                                        </label>
+                                        <div class="fn__hr"></div>
+                                    </div>
+                                    <div class="fn__flex-1 graph__svg">
+                                        <div class="graph__loading fn__none">
+                                            <div style="width:14.0625%"></div>
+                                        </div>
+                                        <div style="height: 100%">
+                                            <div class="vis-network" tabindex="0"
+                                                style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;">
+                                                <canvas
+                                                    style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"
+                                                    width="527" height="514"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="fn__flex-1 fn__flex" style="transition: var(--b3-width-transition);">
+                        <div data-type="wnd" data-id="" class="fn__flex-column fn__flex fn__flex-1">
+                            <ul class="fn__flex layout-tab-bar"></ul>
+                            <div class="layout-tab-container fn__flex-1">
+                                <div class="fn__flex-1 backlink  sy__backlink">
+                                    <div class="block__icons block__icons--active">
+                                        <div class="block__logo">
+                                            <svg>
+                                                <use xlink:href="#iconLink"></use>
+                                            </svg>
+                                            相关文档
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div id="dockRight" class="dock dock--vertical fn__none">
+                <div>
+                    <span data-height="0" data-width="360" data-type="graph" data-index="0"
+                        data-hotkeylangid="graphView" class="dock__item b3-tooltips b3-tooltips__w" aria-label="关系图 Alt+8
+                单击 展开/最小化
+                ">
+                        <svg>
+                            <use xlink:href="#iconGraph"></use>
+                        </svg>
+                    </span>
+                    <span data-height="0" data-width="360" data-type="backlink" data-index="1"
+                        data-hotkeylangid="backlinks" class="dock__item b3-tooltips b3-tooltips__w" aria-label="反向链接 Alt+7
+单击 展开/最小化
+">
+                        <svg>
+                            <use xlink:href="#iconLink"></use>
+                        </svg>
+                    </span>
+                </div>
+                <div class="fn__flex-1">
+
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+        <div id="dockBottom" class="dock fn__none"> </div>
+    </div>
+    <div id="commonMenu" class="b3-menu fn__none"></div>
+    <div id="dragBg" style="z-index:199;pointer-events:none" class="b3-dialog__scrim fn__none"></div>
+    <script src="/stage/protyle/js/lute/lute.min.js"></script>
+    <script src="/stage/build/export/protyle-method.js" id="protyleWcHtmlScript"></script>
+    <script src="/stage/protyle/js/protyle-html.js" id="protyleWcHtmlScript"></script>
+    <script src="/stage/protyle/js/viewerjs/viewer.js" id="viwerScript"></script>
+
+    <script>
+        window.siyuan = {
+            config: {
+                appearance: { mode: 0, codeBlockThemeDark: "base16/dracula", codeBlockThemeLight: "github" },
+                editor: {
+                    codeLineWrap: true,
+                    codeLigatures: true,
+                    plantUMLServePath: "https://www.plantuml.com/plantuml/svg/~1",
+                    codeSyntaxHighlightLineNum: false,
+                }
+            },
+            languages: { copy: "复制" }
+        };
+        setTimeout(() => {
+            const previewElement = document.getElementById('preview');
+            Protyle.highlightRender(previewElement, "/stage/protyle");
+            Protyle.mathRender(previewElement, "/stage/protyle", false);
+            Protyle.mermaidRender(previewElement, "/stage/protyle");
+            Protyle.flowchartRender(previewElement, "/stage/protyle");
+            Protyle.graphvizRender(previewElement, "/stage/protyle");
+            Protyle.chartRender(previewElement, "/stage/protyle");
+            Protyle.mindmapRender(previewElement, "/stage/protyle");
+            Protyle.abcRender(previewElement, "/stage/protyle");
+            Protyle.plantumlRender(previewElement, "/stage/protyle");
+            document.querySelectorAll(".protyle-action__copy").forEach((item) => {
+                item.addEventListener("click", (event) => {
+                    navigator.clipboard.writeText(item.parentElement.nextElementSibling.textContent.trimEnd());
+                    event.preventDefault();
+                    event.stopPropagation();
+                })
+            });
+
+
+        }, 500
+
+        )
+    </script>
+
+</body>
+
+</html>
