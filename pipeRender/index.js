@@ -9,6 +9,7 @@ import { 修改发布主题 } from "./renders/themes.js";
 import { 生成文档树 } from "./renders/fileTree.js";
 import { 生成文档大纲 } from "./renders/outline.js";
 import { 生成导航栏, 生成脚注 } from "./renders/slots.js";
+import { 移除无markdown挂件块 } from "./renders/widgets.js";
 import 设置 from "../config.js";
 function 注入文档元数据(req, res, 渲染结果) {
   if (req.headers["user-agent"]) {
@@ -70,4 +71,5 @@ export default [
   生成导航栏,
   生成脚注,
   重写资源链接,
+  移除无markdown挂件块
 ];

@@ -46,7 +46,7 @@ export async function 生成导航栏(req,res,渲染结果){
 export  async function 生成脚注(req,res,渲染结果){
     let 文档容器 = 渲染结果.querySelector('.protyle-wysiwyg.protyle-wysiwyg--attr[data-doc-type="NodeDocument"]')
     let html = `
-        <div class="fn__flex fn__flex-1 fn__flex-column" id="publishFooter" style="text-align:center;min-height:0.1px !important;position: absolute;justify-content: center;min-width: 100%;bottom: 0;padding:16px;background-color:var(--b3-theme-background)">
+        <div class="fn__flex fn__flex-1 fn__flex-column" id="publishFooter" style="text-align:center;min-height:0.1px !important;position: absolute;justify-content: center;min-width: 100%;bottom: 0;background-color:var(--b3-theme-surface)">
     `
     let stmt = `select * from blocks where id in (select block_id from attributes where name ="custom-publish-slot" and value="footer" )`
     if(req.session&&req.session.user_group=='admin'){

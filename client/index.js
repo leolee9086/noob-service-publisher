@@ -314,59 +314,57 @@ setTimeout(() => {
 
                 html1 += `
                 <div data-type="search-item" class="b3-list-item">
-                    <span 
-                    class="b3-list-item__meta b3-list-item__meta--ellipsis" 
+                    <div 
+                    class="b3-list-item__meta b3-list-item__meta" 
                     title="${notebooks[id].name}">
                     <h1>
 ${notebooks[id].name}
 </h1> 
 
-                    </span>
+                    </div>
                 </div>
                 `
                 for (let fileid in notebooks[id].children) {
                     let file = notebooks[id].children[fileid]
                     html1 += `
                     <div data-type="search-item" class="b3-list-item" style="margin-left:16px">
-                        <span 
-                        class="b3-list-item__meta b3-list-item__meta--ellipsis" 
+                        <div 
+                        class="b3-list-item__meta b3-list-item__meta" 
                         title="${file.hPath}">
                         <h2>
                             <a href="/block/${file.id}">
                             ${file.hPath}
                             </a>
                         </h2>
-                        </span> 
+                        </div> 
                         </div>
                     `
                     for (let blockId in file.children) {
                         let block = file.children[blockId]
                         html1 += `
                         <div data-type="search-item" class="b3-list-item" style="margin-left:32px">
-                        <span 
+                        <div 
                         class="b3-list-item " 
                         title="${block.fcontent}">
                             <a href="/block/${block.id}" style="color:var(--b3-theme-on-background)">
                             ${block.content}
                             </a>
-                        </span> 
+                        </div> 
                         </div>
                         `
                     }
                 }
             }
             console.log(html1)
-
             console.log(document.querySelector('div#publishFooter'), (document.querySelector('div#publishFooter')).innerHTML)
-            html1 += (document.querySelector('div#publishFooter')).innerHTML
             html1 += "</div>"
-            document.querySelector('.protyle').previousElementSibling.innerHTML = html1
+            html1 += (document.querySelector('div#publishFooter')).outerHTML
 
+            document.querySelector('.protyle').previousElementSibling.innerHTML = html1
         }
         else {
             document.querySelector('.protyle').classList.remove('fn__none')
             document.querySelector('.protyle').previousElementSibling.classList.add('fn__none')
-
         }
     }
 }, 500)

@@ -118,7 +118,7 @@
         }
 
         .toolbarCenter li {
-            padding: 10px !important;
+            padding: 0 !important;
             background-color: var(--b3-themes-background) !important;
         }
 
@@ -156,6 +156,10 @@
         .protyle-background__img{
             position: relative;
             border: 0ch;
+        }
+        .searchContainer  div.b3-list-item{
+            display: block;
+            overflow: hidden;
         }
     </style>
     <link id="themeDefaultStyle" rel="stylesheet" type="text/css" href="/appearance/themes/daylight/theme.css">
@@ -711,8 +715,6 @@
                     event.stopPropagation();
                 })
             });
-
-
         }, 500
 
         )

@@ -1,16 +1,15 @@
 {
-    "name": "noobService",
+    "name": "noob-service-publisher",
     "author": "椽承设计",
-    "url": "https://github.com/leolee9086/noobService",
+    "url": "https://github.com/leolee9086/noob-service-publisher",
     "version": "0.0.1",
     "minAppVersion": "2.9.0",
     "displayName": {
-      "default": "noobService",
-      "zh_CN": "菜鸟服务"
+      "default": "noob-service-publisher",
+      "zh_CN": "发布服务"
     },
     "description": {
-      "default": "This is a plugin to add backendSerivce support to siyuan's electron App",
-      "zh_CN": "在思源的electron版本种增加后端服务支持"
+      "default": "This is a service for publish your note"
     },
     "readme": {
       "default": "README.md",
