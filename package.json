@@ -1,6 +1,6 @@
 {
   "name": "noob-service-publishserver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于思源api的简单发布服务",
   "main": "index.js",
   "scripts": {

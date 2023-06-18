@@ -2,7 +2,7 @@
     "name": "noob-service-publisher",
     "author": "椽承设计",
     "url": "https://github.com/leolee9086/noob-service-publisher",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "minAppVersion": "2.9.0",
     "displayName": {
       "default": "noob-service-publisher",
